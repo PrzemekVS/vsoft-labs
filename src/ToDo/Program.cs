@@ -1,4 +1,4 @@
-// <snippet_all>
+// <snippet_all> aaaa
 using NSwag.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 
