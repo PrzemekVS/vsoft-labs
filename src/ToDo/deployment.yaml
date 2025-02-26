@@ -1,3 +1,10 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  annotations:
+    azure.workload.identity/client-id: 2e366621-b032-42df-883a-ec54858ebdeb
+  name: workload-identity-sa123
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -11,10 +18,12 @@ spec:
     metadata:
       labels:
         app: todo
+        azure.workload.identity/use: "true"
     spec:
+      serviceAccountName: workload-identity-sa123
       containers:
         - name: todo
-          image: grupa1vs.azurecr.io/todo:v1
+          image: grupa1vs.azurecr.io/todo:v3
           ports:
             - containerPort: 8080
 ---
