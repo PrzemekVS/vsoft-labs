@@ -110,3 +110,4 @@ static async Task<IResult> DeleteTodo(int id, TodoDb db)
 }
 // <snippet_handlers>
 // </snippet_all>
+
