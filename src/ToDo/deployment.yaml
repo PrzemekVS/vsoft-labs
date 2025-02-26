@@ -32,9 +32,27 @@ kind: Service
 metadata:
   name: todo-service
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   ports:
     - port: 80
       targetPort: 8080
   selector:
     app: todo
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: todo
+spec:
+  ingressClassName: webapprouting.kubernetes.azure.com
+  rules:
+  - host: todo.team1.vsoft.patoarchitekci.io
+    http:
+      paths:
+      - backend:
+          service:
+            name: todo-service
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
