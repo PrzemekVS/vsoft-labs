@@ -65,10 +65,9 @@ jobs:
         with:
           namespace: 'default'
           manifests: |
-            src/ToDo/deployment.yaml
-            src/ToDo/rbac.yaml
-            src/TodoEventsProcessor/deployment.yaml
-          images: |
-            '${{ secrets.REGISTRY }}.azurecr.io/todo/todo:${{ github.sha }}'
-            '${{ secrets.REGISTRY }}.azurecr.io/todo/todo-events-processor:${{ github.sha }}'
+             src/ToDo/deployment.yaml
+             src/ToDo/rbac.yaml
+             src/TodoEventsProcessor/deployment.yaml
+          images: | #            '${{ secrets.REGISTRY }}.azurecr.io/todo/todo:${{ github.sha }}'
+             '${{ secrets.REGISTRY }}.azurecr.io/todo/todo-events-processor:${{ github.sha }}'
           pull-images: false
