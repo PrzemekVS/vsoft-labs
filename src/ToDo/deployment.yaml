@@ -23,7 +23,7 @@ spec:
       serviceAccountName: workload-identity-sa123
       containers:
         - name: todo
-          image: grupa1vs.azurecr.io/todo:v3
+          image: grupa1vs.azurecr.io/todo:4a8e78cb
           ports:
             - containerPort: 8080
 ---
