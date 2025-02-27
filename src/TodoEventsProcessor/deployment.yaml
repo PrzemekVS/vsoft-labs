@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todo-events-processor
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todo-events-processor
+  template:
+    metadata:
+      labels:
+        app: todo-events-processor
+        azure.workload.identity/use: "true"
+    spec:
+      serviceAccountName: workload-identity-sa123  # Używamy istniejącego Service Account
+      containers:
+      - name: todo-events-processor
+        image: grupa1vs.azurecr.io/todo/todo-events-processor:latest
+        env:
+        - name: KeyVaultName
+          value: "grupa1kv"
+        - name: StorageAccountName
+          value: "grupa1sa"
+        - name: APPLICATIONINSIGHTS_CONNECTION_STRING
+          value: "InstrumentationKey=53bea49c-0373-4868-920d-b461ec6049da;IngestionEndpoint=https://polandcentral-0.in.applicationinsights.azure.com/;LiveEndpoint=https://polandcentral.livediagnostics.monitor.azure.com/;ApplicationId=309c0c0c-3bfc-406d-8787-2a40c9df8f3a"

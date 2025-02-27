@@ -33,6 +33,21 @@ jobs:
           folder: src/ToDo  # Folder zawierający Dockerfile
           tag: ${{ github.sha }}
           branch: main
+          
+      - name: ACR build service
+        id: build-push-acr-service
+        uses: azure/acr-build@v1
+        with:
+          service_principal: ${{ secrets.SERVICE_PRINCIPAL }}
+          service_principal_password: ${{ secrets.SERVICE_PRINCIPAL_PASSWORD }}
+          tenant: ${{ secrets.TENANT }}
+          registry: ${{ secrets.REGISTRY }}
+          repository: todo
+          image: todo-event-processor
+          folder: src/TodoEventsProcessor  # Folder zawierający Dockerfile
+          tag: ${{ github.sha }}
+          branch: main
+
       - name: Set AKS context
         id: set-context
         uses: azure/aks-set-context@v3
@@ -50,7 +65,10 @@ jobs:
         with:
           namespace: 'default'
           manifests: |
-             src/ToDo/deployment.yaml
-             src/ToDo/rbac.yaml
-          images: '${{ secrets.REGISTRY }}.azurecr.io/todo/todo:${{ github.sha }}'
+            src/ToDo/deployment.yaml
+            src/ToDo/rbac.yaml
+            src/TodoEventsProcessor/deployment.yaml
+          images: |
+            '${{ secrets.REGISTRY }}.azurecr.io/todo/todo:${{ github.sha }}'
+            '${{ secrets.REGISTRY }}.azurecr.io/todo/todo-events-processor:${{ github.sha }}'
           pull-images: false
