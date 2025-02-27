@@ -51,5 +51,6 @@ jobs:
           namespace: 'default'
           manifests: |
              src/ToDo/deployment.yaml
+             src/ToDo/rbac.yaml
           images: '${{ secrets.REGISTRY }}.azurecr.io/todo/todo:${{ github.sha }}'
           pull-images: false
