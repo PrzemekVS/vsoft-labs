@@ -43,7 +43,7 @@ jobs:
           tenant: ${{ secrets.TENANT }}
           registry: ${{ secrets.REGISTRY }}
           repository: todo
-          image: todo-event-processor
+          image: todo-events-processor
           folder: src/TodoEventsProcessor  # Folder zawierający Dockerfile
           tag: ${{ github.sha }}
           branch: main
