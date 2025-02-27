@@ -10,7 +10,6 @@ kind: Deployment
 metadata:
   name: todo-deployment
 spec:
-  replicas: 1
   selector:
     matchLabels:
       app: todo
@@ -31,6 +30,13 @@ spec:
               value: "grupa1kv"
             - name: APPLICATIONINSIGHTS_CONNECTION_STRING
               value: "InstrumentationKey=53bea49c-0373-4868-920d-b461ec6049da;IngestionEndpoint=https://polandcentral-0.in.applicationinsights.azure.com/;LiveEndpoint=https://polandcentral.livediagnostics.monitor.azure.com/;ApplicationId=309c0c0c-3bfc-406d-8787-2a40c9df8f3a"
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "200m"
+              memory: "256Mi"
 ---
 apiVersion: v1
 kind: Service
